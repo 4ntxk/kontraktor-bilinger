@@ -5,18 +5,17 @@ import Layout from "./components/ui/Layout";
 import Login from "./components/Login";
 import MainUserPage from "./components/MainUserPage";
 import RequireAuth from "./features/auth/RequireAuth";
+import SingleContractorPage from "./components/SingleContractorPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* public routes */}
-
         <Route path="login" element={<Login />} />
 
-        {/* protected routes */}
         <Route element={<RequireAuth />}>
-          <Route path="welcome" element={<MainUserPage />} />
+          <Route path="mainuserpage" element={<MainUserPage />} />
+          <Route path="contractor/:id" element={<SingleContractorPage />} />
         </Route>
       </Route>
     </Routes>

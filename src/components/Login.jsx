@@ -34,7 +34,7 @@ export const Login = () => {
         const token = response.data.data.token;
         console.log("token: " + token);
         dispatch(setCredentials({ user: username, token }));
-        navigate("/welcome", { replace: true });
+        navigate("/mainuserpage", { replace: true });
         console.log("jazda kurwa:", response.data);
         console.log(
           "co ja do chuja zdispatchowałem:",
