@@ -1,3 +1,4 @@
+import AllBillingsTable from "./ui/AllBillingsTable";
 import ContractorsTable from "./ui/ContractorsTable";
 import CreateContractorForm from "./ui/CreateContractorForm";
 const MainUserPage = () => {
@@ -8,6 +9,7 @@ const MainUserPage = () => {
       </div>
       <ContractorsTable />
       <CreateContractorForm />
+      <AllBillingsTable />
     </>
   );
 };

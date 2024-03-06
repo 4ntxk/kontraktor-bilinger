@@ -43,6 +43,12 @@ export const apiSlice = createApi({
         method: "DELETE",
       }),
     }),
+    getContractorBilling: builder.query({
+      query: () => "/contractor/billing",
+    }),
+    getContractorBillingById: builder.query({
+      query: (id) => `/contractor/billing/${id}`,
+    }),
   }),
 });
 
@@ -52,6 +58,8 @@ export const {
   useCreateContractorMutation,
   useDeleteContractorMutation,
   useUpdateHourlyRateMutation,
+  useGetContractorBillingQuery,
+  useGetContractorBillingByIdQuery,
 } = apiSlice;
 
 export default apiSlice;
