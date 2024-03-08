@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setCredentials } from "../features/auth/authSlice";
 import { Button } from "./ui/button";
+
 export const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
@@ -32,14 +33,8 @@ export const Login = () => {
       })
       .then((response) => {
         const token = response.data.data.token;
-        console.log("token: " + token);
         dispatch(setCredentials({ user: username, token }));
         navigate("/mainuserpage", { replace: true });
-        console.log("jazda kurwa:", response.data);
-        console.log(
-          "co ja do chuja zdispatchowałem:",
-          setCredentials({ user: username, token })
-        );
       })
       .catch((error) => {
         console.error("coś źle niestety:", error);
@@ -47,22 +42,13 @@ export const Login = () => {
   };
 
   const handleUserInput = (e) => setUser(e.target.value);
-
   const handlepasswordInput = (e) => setPassword(e.target.value);
 
-  const content = (
+  return (
     <>
-      <p
-        ref={errRef}
-        className="flex justify-center text-center text-3xl text-red-500"
-        aria-live="assertive"
-      >
-        {errMsg}
-      </p>
-      <div className="flex justify-center text-center text-3xl text-red-500"></div>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 bg-violet-500">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h1 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h1 className="text-center text-2xl font-bold text-gray-900">
             username: user
           </h1>
           <h1 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -73,12 +59,12 @@ export const Login = () => {
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-10 mx-auto w-full max-w-sm">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium  text-gray-900"
               >
                 Username
               </label>
@@ -139,14 +125,9 @@ export const Login = () => {
               REGISTER
             </a>
           </p>
-          <p className="mt-10 text-center text-sm text-indigo-600">
-            Back to landing page{" "}
-          </p>
         </div>
       </div>
     </>
   );
-
-  return content;
 };
 export default Login;

@@ -1,3 +1,4 @@
+import { setCredentials } from "@/features/auth/authSlice";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({
@@ -53,6 +54,7 @@ export const apiSlice = createApi({
 });
 
 export const {
+  useRefreshMutation,
   useGetContractorsQuery,
   useGetContractorByIdQuery,
   useCreateContractorMutation,
