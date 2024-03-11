@@ -35,11 +35,10 @@ export default function ContractorsTable() {
   const navigate = useNavigate();
 
   const handleManageClick = (id) => {
-    navigate(`/contractor/${id}`, { replace: true });
+    navigate(`/contractor/${id}`);
   };
 
   const [columns, setColumns] = useState([]);
-
   useEffect(() => {
     setColumns([
       {
@@ -114,7 +113,7 @@ export default function ContractorsTable() {
   });
 
   return (
-    <div className="rounded-md border mx-10 ">
+    <div className="rounded-md border w-1/2">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

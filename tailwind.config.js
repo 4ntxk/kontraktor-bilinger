@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line no-undef
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -17,7 +18,15 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        roboto: ["Roboto Mono", "sans-serif"],
+      },
       colors: {
+        myblack: "#000F08",
+        mybrown: "#EE964B",
+        mywhite: "#F4FFF8",
+        mygray: "#8BAAAD",
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -73,5 +82,6 @@ module.exports = {
       },
     },
   },
+  // eslint-disable-next-line no-undef
   plugins: [require("tailwindcss-animate")],
 };
