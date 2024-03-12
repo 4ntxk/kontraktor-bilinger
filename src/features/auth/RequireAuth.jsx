@@ -8,7 +8,7 @@ const RequireAuth = () => {
 
   return token ? (
     <>
-      <Sidebar className="mx-6" />
+      <Sidebar />
       <Outlet />
     </>
   ) : (

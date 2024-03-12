@@ -4,25 +4,25 @@ export default function MainNav() {
   return (
     <nav className="flex items-center space-x-4 font-roboto justify-center h-10 w-full bg-mywhite text-xl">
       <Link
-        href="/"
+        to="/overview"
         className="text-muted-foreground transition-colors hover:text-myblack "
       >
         Overview
       </Link>
       <Link
-        href="/"
+        to="/contractors"
         className="text-muted-foreground transition-colors hover:text-myblack"
       >
         Contractors
       </Link>
       <Link
-        href="/"
+        to="/billings"
         className="text-muted-foreground transition-colors hover:text-myblack"
       >
         Billings
       </Link>
       <Link
-        href="/"
+        to="/settings"
         className="text-muted-foreground transition-colors hover:text-myblack"
       >
         Settings

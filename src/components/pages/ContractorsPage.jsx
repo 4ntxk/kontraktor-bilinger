@@ -1,5 +1,4 @@
-import ContractorForm from "../ui/ContractorForm";
-import ContractorsTable from "../ui/ContractorsTable";
+import ContractorsTable from "../ContractorsTable";
 
 const ContractorsPage = () => {
   return (
@@ -9,9 +8,8 @@ const ContractorsPage = () => {
           ContractorsPage
         </div>
 
-        <div className="w-full h-screen flex flex-col justify-center items-center">
+        <div className="w-full h-screen flex flex-col justify-center items-center ">
           <ContractorsTable />
-          <ContractorForm />
         </div>
       </div>
     </>
