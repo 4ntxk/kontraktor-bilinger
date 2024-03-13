@@ -1,6 +1,9 @@
 import { TableTemplate } from "./ui/TableTemplate";
 import { columns } from "./ui/CustomColumns";
-import { useGetContractorsQuery } from "@/app/api/apiSlice";
+import {
+  useDeleteContractorMutation,
+  useGetContractorsQuery,
+} from "@/app/api/apiSlice";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 
@@ -13,12 +16,44 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import { useToast } from "./ui/use-toast";
 const ContractorsTable = () => {
   const { data: contractors = [], error, isLoading } = useGetContractorsQuery();
   const navigate = useNavigate();
-  function handleDelete(id) {
-    console.log(id);
-  }
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteContractor] = useDeleteContractorMutation();
+  const { toast } = useToast();
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await deleteContractor(id).unwrap();
+      if (response && response.code === 200) {
+        toast({
+          description: "Delete Success.",
+          status: "success",
+        });
+      } else {
+        toast({
+          description:
+            response.message ||
+            "An error occurred while processing your request.",
+          status: "error",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      const { status, data } = error;
+      console.error("Error Status:", status);
+      console.error("Error Data:", data);
+      toast({
+        description: "An error occurred while processing your request.",
+        status: "error",
+        variant: "destructive",
+      });
+    }
+  };
+
   function handleEdit(id) {
     navigate(`/contractor/${id}`);
   }
@@ -31,7 +66,7 @@ const ContractorsTable = () => {
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="bg-myblack text-mywhite">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
           <DropdownMenuSeparator />
