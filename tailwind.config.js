@@ -23,7 +23,7 @@ module.exports = {
       },
       colors: {
         myblack: "#000F08",
-        mybrown: "#EE964B",
+        mybrown: "#8f6847",
         mywhite: "#F4FFF8",
         mygray: "#8BAAAD",
 

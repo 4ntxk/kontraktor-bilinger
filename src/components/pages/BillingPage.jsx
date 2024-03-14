@@ -1,6 +1,6 @@
-import ContractorsTable from "../ContractorsTable";
+import BillingsTable from "../BillingsTable";
 
-const ContractorsPage = () => {
+const BillingPage = () => {
   return (
     <>
       <div className="bg-myblack font-roboto h-full flex-1 flex-col space-y-8 p-8 md:flex">
@@ -8,14 +8,14 @@ const ContractorsPage = () => {
           <div className="flex flex-col">
             <h2 className="text-2xl font-bold text-mywhite">Welcome back!</h2>
             <p className="text-mywhite">
-              Here&apos;s a list of your contractors!
+              Here&apos;s a list of all your contractors billings!
             </p>
           </div>
-          <ContractorsTable />
+          <BillingsTable />
         </div>
       </div>
     </>
   );
 };
 
-export default ContractorsPage;
+export default BillingPage;

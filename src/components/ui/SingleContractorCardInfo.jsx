@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Card,
   CardContent,
@@ -26,38 +25,58 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import { Separator } from "./separator";
+import { useToast } from "./use-toast";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 function SingleContractorCardInfo() {
   const { id } = useParams();
   const { data: contractor, error, isLoading } = useGetContractorByIdQuery(id);
+  const { toast } = useToast();
 
   const [isDeleting, setIsDeleting] = useState(false);
-  const [deleteContractor] = useDeleteContractorMutation(); // Destructure the mutation function
-
-  const handleDelete = async () => {
+  const [deleteContractor] = useDeleteContractorMutation();
+  const handleDelete = async (id) => {
     try {
-      setIsDeleting(true);
-      await deleteContractor(id); // Call the mutation function with the ID
-      setIsDeleting(false);
-      // Optionally: Redirect or perform any other action after successful deletion
+      const response = await deleteContractor(id).unwrap();
+      if (response && response.code === 200) {
+        toast({
+          description: "Delete Success.",
+          status: "success",
+        });
+      } else {
+        toast({
+          description:
+            response.message ||
+            "An error occurred while processing your request.",
+          status: "error",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
-      console.error("Error deleting contractor:", error);
-      setIsDeleting(false);
+      const { status, data } = error;
+      console.error("Error Status:", status);
+      console.error("Error Data:", data);
+      toast({
+        description: "An error occurred while processing your request.",
+        status: "error",
+        variant: "destructive",
+      });
     }
   };
 
   const FormSchema = z.object({
-    hourlyRate: z.coerce.number().gte(14, {
-      message: "hourly rate must be at leat kurwa 14 ziko",
+    hourlyRate: z.coerce.number().gte(1, {
+      message: "Hourly rate must be at least 1",
     }),
   });
 
@@ -71,16 +90,27 @@ function SingleContractorCardInfo() {
   const [updateHourlyRate, { isLoading: isUpdating }] =
     useUpdateHourlyRateMutation();
 
-  async function onSubmit(data) {
+  async function onSubmitHourlyRate(data) {
     try {
       await updateHourlyRate({ id, hourlyRate: data.hourlyRate }).unwrap();
-      // Optionally, you can handle success here (e.g., show a success message)
+
       console.log("Hourly rate updated successfully!");
+      toast({
+        description: "Hourly rate updated successfully!",
+        status: "success",
+      });
     } catch (error) {
-      // Optionally, you can handle error here (e.g., show an error message)
       console.error("Failed to update hourly rate:", error);
+      const { status, data } = error;
+      toast({
+        description:
+          data.message || "An error occurred while processing your request.",
+        status: "error",
+        variant: "destructive",
+      });
     }
   }
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -95,26 +125,28 @@ function SingleContractorCardInfo() {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
-        <Card className="w-1/3">
-          <div>User ID: {id}</div>
+      <div className="font-roboto flex justify-center items-center h-screen bg-myblack">
+        <Card className="w-1/3 bg-myblack text-mywhite">
+          <div className="p-2 text-center">Contractor ID: {id}</div>
           <CardHeader>
             <CardTitle>
               {contractor.data.firstName} {contractor.data.lastName}
             </CardTitle>
-            <CardDescription>manage your contractor</CardDescription>
+            <CardDescription className="text-mygray">
+              manage your contractor
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="mx-10 flex justify-between items-center my-2">
               <p className="p-2">hourly rate: {contractor.data.hourlyRate}</p>
               <Dialog>
-                <DialogTrigger className="bg-primary rounded text-white p-2">
+                <DialogTrigger className="bg-myblack border hover:bg-mygray text-sm rounded text-mywhite p-2">
                   CHANGE
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="bg-myblack text-mywhite">
                   <Form {...form}>
                     <form
-                      onSubmit={form.handleSubmit(onSubmit)}
+                      onSubmit={form.handleSubmit(onSubmitHourlyRate)}
                       className="w-2/3 space-y-6"
                     >
                       <FormField
@@ -122,11 +154,12 @@ function SingleContractorCardInfo() {
                         name="hourlyRate"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>New hourly rate</FormLabel>
+                            <FormLabel>Assign new hourly rate</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="current value dodam pozniej"
+                                placeholder="*current value*"
                                 {...field}
+                                className="bg-myblack text-mywhite"
                               />
                             </FormControl>
 
@@ -134,22 +167,24 @@ function SingleContractorCardInfo() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit">Submit</Button>
+                      <Button
+                        className="bg-myblack border text-mywhite hover:bg-mygray"
+                        type="submit"
+                      >
+                        Submit
+                      </Button>
                     </form>
                   </Form>
-                  <DialogHeader>
-                    <DialogTitle>
-                      You are about to chnage hourly rate
-                    </DialogTitle>
-                  </DialogHeader>
+                  <DialogHeader></DialogHeader>
                 </DialogContent>
               </Dialog>
             </div>
+            <Separator />
             <div className="mx-10 flex justify-between items-center my-2">
               <p className="p-2">
                 monthly hour limit: {contractor.data.monthlyHourLimit}
               </p>
-              <Button>CHANGE</Button>
+              <Button className="bg-mygray">CHANGE</Button>
             </div>
             <div className="mx-10 flex justify-between items-center my-2">
               <p className="p-2">
@@ -178,13 +213,34 @@ function SingleContractorCardInfo() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button
-              variant="destructive"
-              onClick={handleDelete}
-              disabled={isDeleting}
-            >
-              {isDeleting ? "Deleting..." : "DELETE"}
-            </Button>
+            <Dialog>
+              <DialogTrigger className="bg-red-800 hover:bg-red-600 border text-sm rounded text-mywhite p-2">
+                DELETE
+              </DialogTrigger>
+              <DialogContent className="bg-myblack text-mywhite">
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogDescription>
+                  This process is irreversable.
+                </DialogDescription>
+                <DialogClose asChild>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={() => handleDelete(id)}
+                  >
+                    Yes
+                  </Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button
+                    type="button"
+                    className="bg-myblack text-mywhite border hover:bg-mygray"
+                  >
+                    No
+                  </Button>
+                </DialogClose>
+              </DialogContent>
+            </Dialog>
           </CardFooter>
         </Card>
       </div>

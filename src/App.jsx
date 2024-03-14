@@ -6,6 +6,8 @@ import LoginPage from "./components/pages/LoginPage";
 import ContractorsPage from "./components/pages/ContractorsPage";
 import Overview from "./components/pages/Overview";
 import { Toaster } from "./components/ui/toaster";
+import ContractorForm from "./components/ui/ContractorForm";
+import BillingPage from "./components/pages/BillingPage";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="overview" element={<Overview />} />
           <Route path="contractors" element={<ContractorsPage />} />
           <Route path="contractor/:id" element={<SingleContractorPage />} />
+          <Route path="addcontractor" element={<ContractorForm />} />
+          <Route path="billings" element={<BillingPage />} />
         </Route>
       </Routes>
       <Toaster />

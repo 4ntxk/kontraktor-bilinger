@@ -22,7 +22,7 @@ import {
 import { Button } from "./button";
 import { DataTableViewOptions } from "./DataTableViewOptions";
 
-export function TableTemplate({ columns, data, actions }) {
+export function BillingsTableTemplate({ columns, data, actions }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const navigate = useNavigate();
@@ -50,14 +50,6 @@ export function TableTemplate({ columns, data, actions }) {
     <>
       <div className="rounded-md text-mywhite w-2/3">
         <div className="flex items-center py-4 text-mywhite">
-          <Input
-            placeholder="Filter lastnames"
-            value={table.getColumn("lastName")?.getFilterValue() ?? ""}
-            onChange={(event) =>
-              table.getColumn("lastName")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm bg-myblack"
-          />
           <DataTableViewOptions table={table} />
         </div>
         <div>
@@ -116,7 +108,7 @@ export function TableTemplate({ columns, data, actions }) {
             size="sm"
             className="border text-white border-mywhite border-solid bg-mybrown hover:bg-myblack"
           >
-            Add contractor
+            Add billing
           </Button>
           <div>
             <Button
