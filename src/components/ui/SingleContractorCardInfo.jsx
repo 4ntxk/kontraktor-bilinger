@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   useGetContractorByIdQuery,
   useUpdateHourlyRateMutation,
@@ -38,9 +39,9 @@ import { Separator } from "./separator";
 import { useToast } from "./use-toast";
 import { DialogDescription } from "@radix-ui/react-dialog";
 
-function SingleContractorCardInfo() {
+function SingleContractorCardInfo({ contractor }) {
   const { id } = useParams();
-  const { data: contractor, error, isLoading } = useGetContractorByIdQuery(id);
+
   const { toast } = useToast();
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -111,22 +112,10 @@ function SingleContractorCardInfo() {
     }
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!contractor) {
-    return <div>No contractor found.</div>;
-  }
-
   return (
     <>
       <div className="font-roboto flex justify-center items-center h-screen bg-myblack">
-        <Card className="w-1/3 bg-myblack text-mywhite">
+        <Card className="bg-myblack text-mywhite mx-10">
           <div className="p-2 text-center">Contractor ID: {id}</div>
           <CardHeader>
             <CardTitle>
