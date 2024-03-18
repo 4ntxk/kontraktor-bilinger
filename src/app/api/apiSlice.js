@@ -50,6 +50,16 @@ export const apiSlice = createApi({
     getContractorBillingById: builder.query({
       query: (id) => `/contractor/billing/${id}`,
     }),
+    createContractorBilling: builder.mutation({
+      query: (newContractorBilling) => ({
+        url: "/contractor/billing",
+        method: "POST",
+        body: newContractorBilling,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
   }),
 });
 
@@ -62,6 +72,7 @@ export const {
   useUpdateHourlyRateMutation,
   useGetContractorBillingQuery,
   useGetContractorBillingByIdQuery,
+  useCreateContractorBillingMutation,
 } = apiSlice;
 
 export default apiSlice;

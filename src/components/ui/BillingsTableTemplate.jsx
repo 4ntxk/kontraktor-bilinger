@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import * as React from "react";
-import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import {
   flexRender,
@@ -42,8 +41,8 @@ export function BillingsTableTemplate({ columns, data, actions }) {
     },
   });
 
-  const handleAddContractor = () => {
-    navigate("/addcontractor");
+  const handleAddBilling = () => {
+    navigate("/addbilling");
   };
 
   return (
@@ -104,7 +103,7 @@ export function BillingsTableTemplate({ columns, data, actions }) {
         </div>
         <div className="mt-2 flex justify-between">
           <Button
-            onClick={handleAddContractor}
+            onClick={handleAddBilling}
             size="sm"
             className="border text-white border-mywhite border-solid bg-mybrown hover:bg-myblack"
           >
