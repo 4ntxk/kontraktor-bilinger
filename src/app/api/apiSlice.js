@@ -60,11 +60,23 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    deleteBilling: builder.mutation({
+      query: (id) => ({
+        url: `/contractor/billing/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    updateWorkedHours: builder.mutation({
+      query: ({ id, workedHours }) => ({
+        url: `/contractor/billing/hours/${id}`,
+        method: "PUT",
+        body: { workedHours },
+      }),
+    }),
   }),
 });
 
 export const {
-  useRefreshMutation,
   useGetContractorsQuery,
   useGetContractorByIdQuery,
   useCreateContractorMutation,
@@ -73,6 +85,8 @@ export const {
   useGetContractorBillingQuery,
   useGetContractorBillingByIdQuery,
   useCreateContractorBillingMutation,
+  useDeleteBillingMutation,
+  useUpdateWorkedHoursMutation,
 } = apiSlice;
 
 export default apiSlice;

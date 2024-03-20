@@ -9,6 +9,7 @@ import { Toaster } from "./components/ui/toaster";
 import ContractorForm from "./components/ui/ContractorForm";
 import BillingPage from "./components/pages/BillingPage";
 import BillingForm from "./components/pages/BillingForm";
+import SingleBillingPage from "./components/pages/SingleBillingPage";
 
 function App() {
   return (
@@ -19,10 +20,11 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="overview" element={<Overview />} />
           <Route path="contractors" element={<ContractorsPage />} />
-          <Route path="contractor/:id" element={<SingleContractorPage />} />
           <Route path="addcontractor" element={<ContractorForm />} />
+          <Route path="contractor/:id" element={<SingleContractorPage />} />
           <Route path="addbilling" element={<BillingForm />} />
           <Route path="billings" element={<BillingPage />} />
+          <Route path="billing/:id" element={<SingleBillingPage />} />
         </Route>
       </Routes>
       <Toaster />

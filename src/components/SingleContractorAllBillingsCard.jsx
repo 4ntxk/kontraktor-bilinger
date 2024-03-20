@@ -12,14 +12,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
 
 const SingleContractorAllBillingsCard = ({ contractor }) => {
+  const navigate = useNavigate();
   function handleDelete(id) {
     console.log(id);
   }
 
   function handleEdit(id) {
-    console.log(id);
+    navigate(`/billing/${id}`);
   }
 
   const actions = ({ row }) => (

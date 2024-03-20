@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "./button";
 import { DataTableViewOptions } from "./DataTableViewOptions";
+import { useNavigate } from "react-router-dom";
 
 export function SingleContractorBillingsTableTemplate({
   columns,
@@ -27,6 +28,7 @@ export function SingleContractorBillingsTableTemplate({
 }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
+  const navigate = useNavigate();
 
   const table = useReactTable({
     data: data.contractorBillings,
@@ -42,6 +44,10 @@ export function SingleContractorBillingsTableTemplate({
       columnFilters,
     },
   });
+
+  const handleAddBilling = () => {
+    navigate("/addbilling");
+  };
 
   return (
     <>
@@ -100,6 +106,13 @@ export function SingleContractorBillingsTableTemplate({
           </Table>
         </div>
         <div className="mt-2 flex justify-between">
+          <Button
+            onClick={handleAddBilling}
+            size="sm"
+            className="border text-white border-mywhite border-solid bg-mybrown hover:bg-myblack"
+          >
+            Add billing
+          </Button>
           <div>
             <Button
               className="border border-mywhite border-solid bg-myblack hover:bg-mygray"

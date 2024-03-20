@@ -94,7 +94,6 @@ function SingleContractorCardInfo({ contractor }) {
   async function onSubmitHourlyRate(data) {
     try {
       await updateHourlyRate({ id, hourlyRate: data.hourlyRate }).unwrap();
-
       console.log("Hourly rate updated successfully!");
       toast({
         description: "Hourly rate updated successfully!",
