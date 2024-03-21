@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import {
-  useGetContractorByIdQuery,
   useUpdateHourlyRateMutation,
   useDeleteContractorMutation,
 } from "@/app/api/apiSlice";
@@ -34,7 +33,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
 import { Separator } from "./separator";
 import { useToast } from "./use-toast";
 import { DialogDescription } from "@radix-ui/react-dialog";
@@ -44,7 +42,6 @@ function SingleContractorCardInfo({ contractor }) {
 
   const { toast } = useToast();
 
-  const [isDeleting, setIsDeleting] = useState(false);
   const [deleteContractor] = useDeleteContractorMutation();
   const handleDelete = async (id) => {
     try {
